@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            width: 70%;
+            max-width: 900px;
+            margin: 2em auto;
+        }  
+
+        #main {
+            text-align: center;
+            border: 1px solid #dfe1e5;
+            width: fit-content;
+        }
+        
+        #introContainer {
+            display: grid;
+            grid-template-columns: 200px 200px;
+        }
+
+        #projectContainer {
+            display: grid;
+            grid-template-columns: 250px;
+        }
+
+        #projectList {
+            text-align: left;
+        }
+
+        #projects {
+            margin-left: 27px;
+            margin-top: -25px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <br>
+        <div>
+            <div id="introContainer">
+                <div>
+                    <img id="profilePicture"
+                        height="100"
+                        width="100"
+                    >
+                </div>
+                <div>
+                    <div><h2 id="myName" style="text-align: left;"></h2></div>
+                    <div><p id="myBio" style="text-align: left;"></p></div>
+                </div>
+            </div>
+            <div id="projectContainer">
+                <div>
+                    <h3 style="margin-left: -53px;">My Projects</h3>
+                </div>
+                <div id="projects">
+                    <ul id="projectList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        fetch("https://api.github.com/users/rajendrabaskota")
+            .then((response) => response.json())
+            .then((data) => {
+                document.getElementById('profilePicture').src = data.avatar_url;
+                document.getElementById('myName').textContent = data.name;
+                document.getElementById('myBio').textContent = data.bio
+            })
+        fetch("https://api.github.com/users/rajendrabaskota/repos")
+            .then((response) => response.json())
+            .then((data) => {
+                for(i in data){
+                    let list = document.createElement("li");
+                    let atag = document.createElement("a");
+                    atag.href = data[i].html_url
+                    let text = document.createTextNode(data[i].name)
+                    atag.appendChild(text)
+                    list.appendChild(atag)
+                    document.getElementById("projectList").appendChild(list)
+                }
+            })
+    </script>
+</body>
+</html>
