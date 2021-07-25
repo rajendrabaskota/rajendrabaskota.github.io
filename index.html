@@ -10,12 +10,15 @@
             width: 70%;
             max-width: 900px;
             margin: 2em auto;
+            
         }  
 
         #main {
             text-align: center;
             border: 1px solid #dfe1e5;
             width: fit-content;
+            background-image: linear-gradient(180deg, rgb(253, 132, 132), rgb(240, 188, 188));
+            color: white;
         }
         
         #introContainer {
@@ -40,7 +43,10 @@
     </style>
 </head>
 <body>
-    <div id="main">
+    <div id="loading">
+        loading...
+    </div>
+    <div id="main" hidden>
         <br>
         <div>
             <div id="introContainer">
@@ -85,6 +91,9 @@
                     list.appendChild(atag)
                     document.getElementById("projectList").appendChild(list)
                 }
+
+                document.getElementById("main").hidden = false;
+                document.getElementById("loading").hidden = true;
             })
     </script>
 </body>
